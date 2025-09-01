@@ -41,4 +41,15 @@ public class Metrics {
                 .map(Map.Entry::getKey)
                 .orElse("No products found");
     }
+
+    public double getAverageCheckForDeliveredOrders() {
+        return orders.stream()
+                .filter(order -> order.getStatus() == OrderStatus.DELIVERED)
+                .map(Order::getItems)
+                .filter(Objects::nonNull)
+                .flatMap(List::stream)
+                .mapToDouble(orderItem -> orderItem.getPrice() * orderItem.getQuantity())
+                .average()
+                .orElse(0);
+    }
 }
