@@ -1,15 +1,12 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Metrics {
-    private List<Order> orders;
+    private final List<Order> orders;
 
     public Metrics(List<Order> orders) {
-        this.orders = new ArrayList<>(orders);
+        this.orders = new ArrayList<>(Objects.requireNonNullElse(orders, Collections.emptyList()));
     }
 
     public List<String> getUniqueCities() {
