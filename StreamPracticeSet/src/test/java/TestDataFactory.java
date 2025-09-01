@@ -32,7 +32,7 @@ public class TestDataFactory {
     public static List<OrderItem> createOrderItems(String... productNames) {
         List<OrderItem> items = new ArrayList<>();
         for (String name : productNames) {
-            items.add(new OrderItem(name, 1, 100, Category.HOME)); // default quantity & price
+            items.add(new OrderItem(name, 1, 100, Category.HOME));
         }
         return items;
     }

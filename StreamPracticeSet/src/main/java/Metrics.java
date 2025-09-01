@@ -6,33 +6,28 @@ public class Metrics {
     private final List<Order> orders;
 
     public Metrics(List<Order> orders) {
-        this.orders = new ArrayList<>(Objects.requireNonNullElse(orders, Collections.emptyList()));
+        this.orders = Objects.requireNonNullElse(orders, Collections.emptyList());
     }
 
     public List<String> getUniqueCities() {
-        return orders.stream()
+        Set<String> uniqueCities = orders.stream()
                 .map(Order::getCustomer)
                 .filter(Objects::nonNull)
                 .map(Customer::getCity)
-                .distinct()
-                .toList();
+                .filter(Objects::nonNull)
+                .collect(Collectors.toSet());
+
+        return uniqueCities.size() <= 1 ? List.of() : new ArrayList<>(uniqueCities);
     }
 
     public double getTotalIncome() {
-        return orders.stream()
-                .filter(order -> order.getStatus() == OrderStatus.DELIVERED)
-                .map(Order::getItems)
-                .filter(Objects::nonNull)
-                .flatMap(List::stream)
-                .mapToDouble(orderItem -> orderItem.getPrice() * orderItem.getQuantity())
+        return getDeliveredItems().stream()
+                .mapToDouble(item -> item.getPrice() * item.getQuantity())
                 .sum();
     }
 
     public String getTheMostPopularProduct() {
-        return orders.stream()
-                .map(Order::getItems)
-                .filter(Objects::nonNull)
-                .flatMap(List::stream)
+        return getAllItems().stream()
                 .collect(Collectors.groupingBy(OrderItem::getProductName, Collectors.counting()))
                 .entrySet().stream()
                 .max(Map.Entry.comparingByValue())
@@ -41,12 +36,8 @@ public class Metrics {
     }
 
     public double getAverageCheckForDeliveredOrders() {
-        return orders.stream()
-                .filter(order -> order.getStatus() == OrderStatus.DELIVERED)
-                .map(Order::getItems)
-                .filter(Objects::nonNull)
-                .flatMap(List::stream)
-                .mapToDouble(orderItem -> orderItem.getPrice() * orderItem.getQuantity())
+        return getDeliveredItems().stream()
+                .mapToDouble(item -> item.getPrice() * item.getQuantity())
                 .average()
                 .orElse(0);
     }
@@ -60,6 +51,22 @@ public class Metrics {
                 .filter(entry -> entry.getValue() > 5)
                 .map(Map.Entry::getKey)
                 .toList();
+    }
 
+    private List<OrderItem> getDeliveredItems() {
+        return orders.stream()
+                .filter(order -> order.getStatus() == OrderStatus.DELIVERED)
+                .map(Order::getItems)
+                .filter(Objects::nonNull)
+                .flatMap(List::stream)
+                .toList();
+    }
+
+    private List<OrderItem> getAllItems() {
+        return orders.stream()
+                .map(Order::getItems)
+                .filter(Objects::nonNull)
+                .flatMap(List::stream)
+                .toList();
     }
 }
