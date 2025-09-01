@@ -4,11 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d9ee586d-f92b-4ed3-973f-711b96de817c" name="Changes" comment="" />
+    <list default="true" id="d9ee586d-f92b-4ed3-973f-711b96de817c" name="Changes" comment="refactor: take out repeating code to external methods">
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/StreamPracticeSet.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/MetricsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager">
+    <option name="groupingKeys">
+      <option value="directory" />
+      <option value="repository" />
+    </option>
   </component>
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
@@ -29,12 +42,17 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -53,6 +71,9 @@
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
 }</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
@@ -64,11 +85,20 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Gradle.Download Sources.executor": "Run",
+    "Gradle.MetricsTest.executor": "Run",
+    "Gradle.MetricsTest.returnsZeroWhenNoDeliveredItemsPresent.executor": "Run",
+    "Gradle.MetricsTest.shouldCalculateAverageCheckForDeliveredOrders.executor": "Run",
+    "Gradle.MetricsTest.shouldCalculateTotalIncomeFromDeliveredOrdersOnly.executor": "Run",
     "Gradle.MetricsTest.shouldReturnAverageCheckForDeliveredOrders.executor": "Run",
     "Gradle.MetricsTest.shouldReturnCustomersWithMoreThanFiveOrders.executor": "Run",
+    "Gradle.MetricsTest.shouldReturnEmptyList.executor": "Run",
+    "Gradle.MetricsTest.shouldReturnEmptyListForGetUniqueCities.executor": "Run",
+    "Gradle.MetricsTest.shouldReturnMessageForGetTheMostPopularProductAcrossAllOrders.executor": "Run",
     "Gradle.MetricsTest.shouldReturnTheMostPopularProduct.executor": "Run",
     "Gradle.MetricsTest.shouldReturnTotalIncome.executor": "Run",
     "Gradle.MetricsTest.shouldReturnUniqueCities.executor": "Run",
+    "Gradle.MetricsTest.shouldReturnUniqueCitiesFromMixedOrders.executor": "Run",
+    "Gradle.MetricsTest.testCustomerWithMoreThanFiveOrders_PositiveCase.executor": "Run",
     "Gradle.MetricsTest.testGetCustomersWithMoreThan5Orders.executor": "Run",
     "Gradle.MetricsTest.testGetTheMostPopularProduct.executor": "Run",
     "Gradle.MetricsTest.testGetTotalIncome.executor": "Run",
@@ -78,9 +108,10 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "tasks/sales-customer-analysis",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Lenovo/IdeaProjects/innowise/inno-practical-course/StreamPracticeSet",
     "node.js.detected.package.eslint": "true",
@@ -88,6 +119,10 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.47356322",
+    "settings.editor.selected.configurable": "reference.projectsettings.compiler.annotationProcessors",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -99,8 +134,8 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.MetricsTest.testGetCustomersWithMoreThan5Orders">
-    <configuration name="MetricsTest.shouldReturnAverageCheckForDeliveredOrders" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.MetricsTest.shouldCalculateAverageCheckForDeliveredOrders">
+    <configuration name="MetricsTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -113,7 +148,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;MetricsTest.shouldReturnAverageCheckForDeliveredOrders&quot;" />
+            <option value="&quot;MetricsTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -124,7 +159,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="MetricsTest.shouldReturnTheMostPopularProduct" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="MetricsTest.returnsZeroWhenNoDeliveredItemsPresent" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -137,7 +172,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;MetricsTest.shouldReturnTheMostPopularProduct&quot;" />
+            <option value="&quot;MetricsTest.returnsZeroWhenNoDeliveredItemsPresent&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -148,7 +183,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="MetricsTest.shouldReturnTotalIncome" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="MetricsTest.shouldCalculateAverageCheckForDeliveredOrders" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -161,7 +196,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;MetricsTest.shouldReturnTotalIncome&quot;" />
+            <option value="&quot;MetricsTest.shouldCalculateAverageCheckForDeliveredOrders&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -172,7 +207,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="MetricsTest.testGetCustomersWithMoreThan5Orders" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="MetricsTest.shouldCalculateTotalIncomeFromDeliveredOrdersOnly" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -185,7 +220,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;MetricsTest.testGetCustomersWithMoreThan5Orders&quot;" />
+            <option value="&quot;MetricsTest.shouldCalculateTotalIncomeFromDeliveredOrdersOnly&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -196,7 +231,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="MetricsTest.testGetTheMostPopularProduct" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="MetricsTest.shouldReturnMessageForGetTheMostPopularProductAcrossAllOrders" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -209,7 +244,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;MetricsTest.testGetTheMostPopularProduct&quot;" />
+            <option value="&quot;MetricsTest.shouldReturnMessageForGetTheMostPopularProductAcrossAllOrders&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -222,11 +257,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.MetricsTest.testGetCustomersWithMoreThan5Orders" />
-        <item itemvalue="Gradle.MetricsTest.shouldReturnAverageCheckForDeliveredOrders" />
-        <item itemvalue="Gradle.MetricsTest.shouldReturnTotalIncome" />
-        <item itemvalue="Gradle.MetricsTest.shouldReturnTheMostPopularProduct" />
-        <item itemvalue="Gradle.MetricsTest.testGetTheMostPopularProduct" />
+        <item itemvalue="Gradle.MetricsTest.shouldCalculateAverageCheckForDeliveredOrders" />
+        <item itemvalue="Gradle.MetricsTest.shouldCalculateTotalIncomeFromDeliveredOrdersOnly" />
+        <item itemvalue="Gradle.MetricsTest" />
+        <item itemvalue="Gradle.MetricsTest.returnsZeroWhenNoDeliveredItemsPresent" />
+        <item itemvalue="Gradle.MetricsTest.shouldReturnMessageForGetTheMostPopularProductAcrossAllOrders" />
       </list>
     </recent_temporary>
   </component>
@@ -249,11 +284,141 @@
       <workItem from="1756655670030" duration="8342000" />
       <workItem from="1756738867750" duration="149000" />
       <workItem from="1756739423601" duration="20000" />
-      <workItem from="1756739602674" duration="11000" />
+      <workItem from="1756739602674" duration="7646000" />
     </task>
+    <task id="LOCAL-00001" summary="init: initialize Sales and Customer Analysis task">
+      <option name="closed" value="true" />
+      <created>1756739861950</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1756739861950</updated>
+    </task>
+    <task id="LOCAL-00002" summary="feat: add main class for metrics">
+      <option name="closed" value="true" />
+      <created>1756739959678</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1756739959678</updated>
+    </task>
+    <task id="LOCAL-00003" summary="feat: implement method, which returns list of unique cities where orders came from">
+      <option name="closed" value="true" />
+      <created>1756740564394</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1756740564394</updated>
+    </task>
+    <task id="LOCAL-00004" summary="feat: implement method, which returns total income for all completed orders">
+      <option name="closed" value="true" />
+      <created>1756740612942</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1756740612942</updated>
+    </task>
+    <task id="LOCAL-00005" summary="feat: implement method, which returns the most popular product by sales">
+      <option name="closed" value="true" />
+      <created>1756740718803</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1756740718804</updated>
+    </task>
+    <task id="LOCAL-00006" summary="feat: implement method, which returns average check for successfully delivered orders">
+      <option name="closed" value="true" />
+      <created>1756740771185</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1756740771185</updated>
+    </task>
+    <task id="LOCAL-00007" summary="feat: implement method, which returns customers who have more than 5 orders">
+      <option name="closed" value="true" />
+      <created>1756740830446</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1756740830446</updated>
+    </task>
+    <task id="LOCAL-00008" summary="fix: handle null orders list in Metrics constructor">
+      <option name="closed" value="true" />
+      <created>1756741349401</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1756741349401</updated>
+    </task>
+    <task id="LOCAL-00009" summary="feat: implement class for creating test data">
+      <option name="closed" value="true" />
+      <created>1756742108410</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1756742108410</updated>
+    </task>
+    <task id="LOCAL-00010" summary="feat: add more sample data for tests">
+      <option name="closed" value="true" />
+      <created>1756745705700</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1756745705700</updated>
+    </task>
+    <task id="LOCAL-00011" summary="refactor: take out repeating code to external methods">
+      <option name="closed" value="true" />
+      <created>1756745865493</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1756745865493</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="init: create README.md" />
+    <MESSAGE value="init: initialize Sales and Customer Analysis task" />
+    <MESSAGE value="feat: add main class for metrics" />
+    <MESSAGE value="feat: implement method, which returns list of unique cities where orders came from" />
+    <MESSAGE value="feat: implement method, which returns total income for all completed orders" />
+    <MESSAGE value="feat: implement method, which returns the most popular product by sales" />
+    <MESSAGE value="feat: implement method, which returns average check for successfully delivered orders" />
+    <MESSAGE value="feat: implement method, which returns customers who have more than 5 orders" />
+    <MESSAGE value="fix: handle null orders list in Metrics constructor" />
+    <MESSAGE value="feat: implement class for creating test data" />
+    <MESSAGE value="feat: add more sample data for tests" />
+    <MESSAGE value="refactor: take out repeating code to external methods" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: take out repeating code to external methods" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/MetricsTest.java</url>
+          <line>80</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
