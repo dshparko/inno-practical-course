@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Metrics {
@@ -51,5 +52,17 @@ public class Metrics {
                 .mapToDouble(orderItem -> orderItem.getPrice() * orderItem.getQuantity())
                 .average()
                 .orElse(0);
+    }
+
+    public List<Customer> getCustomersWithMoreThan5Orders() {
+        return orders.stream()
+                .map(Order::getCustomer)
+                .filter(Objects::nonNull)
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+                .entrySet().stream()
+                .filter(entry -> entry.getValue() > 5)
+                .map(Map.Entry::getKey)
+                .toList();
+
     }
 }
