@@ -18,4 +18,13 @@ public class Metrics {
                 .toList();
     }
 
+    public double getTotalIncome() {
+        return orders.stream()
+                .filter(order -> order.getStatus() == OrderStatus.DELIVERED)
+                .map(Order::getItems)
+                .filter(Objects::nonNull)
+                .flatMap(List::stream)
+                .mapToDouble(orderItem -> orderItem.getPrice() * orderItem.getQuantity())
+                .sum();
+    }
 }
