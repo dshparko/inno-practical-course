@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Metrics {
     private List<Order> orders;
@@ -26,5 +28,17 @@ public class Metrics {
                 .flatMap(List::stream)
                 .mapToDouble(orderItem -> orderItem.getPrice() * orderItem.getQuantity())
                 .sum();
+    }
+
+    public String getTheMostPopularProduct() {
+        return orders.stream()
+                .map(Order::getItems)
+                .filter(Objects::nonNull)
+                .flatMap(List::stream)
+                .collect(Collectors.groupingBy(OrderItem::getProductName, Collectors.counting()))
+                .entrySet().stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .orElse("No products found");
     }
 }
