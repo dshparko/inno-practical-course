@@ -1,3 +1,4 @@
-public class RobotPart {
-    PartType type;
+public record RobotPart(
+        PartType type
+) {
 }
