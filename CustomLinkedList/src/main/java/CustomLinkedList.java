@@ -39,6 +39,8 @@ public class CustomLinkedList<V> {
         if (index == size) return addLast(value);
 
         Node<V> current = getNode(index);
+        if (current == null) return false;
+
         Node<V> newNode = new Node<>(value);
         Node<V> prev = current.getPrev();
 
@@ -61,7 +63,8 @@ public class CustomLinkedList<V> {
 
     public V get(int index) {
         Node<V> node = getNode(index);
-        return node != null ? node.getValue() : null;
+        if (node == null) return null;
+        return node.getValue();
     }
 
     public boolean removeFirst() {
@@ -94,6 +97,8 @@ public class CustomLinkedList<V> {
         if (index == size - 1) return removeLast();
 
         Node<V> node = getNode(index);
+        if (node == null) return false;
+
         Node<V> prev = node.getPrev();
         Node<V> next = node.getNext();
 
