@@ -1,20 +1,33 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Factory {
-    private List<RobotPart> dailyParts = new ArrayList<>();
-    private final Random random = new Random();
+    private final Queue<RobotPart> availableParts = new ConcurrentLinkedQueue<>();
 
-    public void producePart() {
-        dailyParts.clear();
-        int count = random.nextInt(11);
+    public void produceParts(int maxCount) {
+        availableParts.clear();
+        int count = ThreadLocalRandom.current().nextInt(1, maxCount + 1);
+
         for (int i = 0; i < count; i++) {
-            dailyParts.add(getRandomPart());
+            availableParts.add(getRandomRobotPart());
         }
     }
 
-    private RobotPart getRandomPart() {
-        return new RobotPart(PartType.values()[random.nextInt(4)]);
+    public List<RobotPart> collectParts(int maxCount) {
+        List<RobotPart> collected = new ArrayList<>();
+        for (int i = 0; i < maxCount; i++) {
+            RobotPart part = availableParts.poll();
+            if (part == null) break;
+
+            collected.add(part);
+        }
+        return collected;
+    }
+
+    private RobotPart getRandomRobotPart() {
+        return new RobotPart(PartType.getRandomPart());
     }
 }
