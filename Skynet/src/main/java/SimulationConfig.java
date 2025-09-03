@@ -1,0 +1,6 @@
+public class SimulationConfig {
+    public static final int DAYS = 100;
+    public static final int FACTORY_PARTS_PER_DAY = 10;
+    public static final int MIN_SLEEP_MS = 5;
+    public static final int MAX_SLEEP_MS = 15;
+}
