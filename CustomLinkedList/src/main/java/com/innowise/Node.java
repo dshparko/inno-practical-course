@@ -1,8 +1,14 @@
+package com.innowise;
+
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Setter
 @Getter
+@ToString
+@EqualsAndHashCode
 public class Node<V> {
     V value;
     Node<V> next;

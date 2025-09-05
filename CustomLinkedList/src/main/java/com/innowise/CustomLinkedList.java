@@ -1,3 +1,7 @@
+package com.innowise;
+
+import java.util.Optional;
+
 public class CustomLinkedList<V> {
     private int size = 0;
     private Node<V> first;
@@ -60,12 +64,12 @@ public class CustomLinkedList<V> {
         return true;
     }
 
-    public V getFirst() {
-        return first != null ? first.getValue() : null;
+    public Optional<V> getFirst() {
+        return Optional.ofNullable(first).map(Node::getValue);
     }
 
-    public V getLast() {
-        return last != null ? last.getValue() : null;
+    public Optional<V> getLast() {
+        return Optional.ofNullable(last).map(Node::getValue);
     }
 
     public V get(int index) {
