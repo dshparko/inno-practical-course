@@ -1,3 +1,11 @@
+package com.innowise.util.testdata;
+
+import com.innowise.dto.Category;
+import com.innowise.dto.Customer;
+import com.innowise.dto.Order;
+import com.innowise.dto.OrderItem;
+import com.innowise.dto.OrderStatus;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,12 +14,12 @@ import java.util.stream.IntStream;
 
 public class TestDataFactory {
 
+    private static final List<Customer> customers = createSampleCustomers();
+    private static final List<Customer> customersWithTheSameCity = createSampleCustomersWithSameCity("Minsk");
+
+
     public static Customer createCustomer(String id, String name, String email, String city, int age) {
         return new Customer(id, name, email, LocalDateTime.now(), age, city);
-    }
-
-    public static Customer createDefaultCustomer() {
-        return createCustomer("0", "default", "default@mail.com", "Minsk", 30);
     }
 
     public static List<Customer> createSampleCustomers() {
@@ -64,7 +72,6 @@ public class TestDataFactory {
     }
 
     public static List<Order> createOrdersWithoutProducts() {
-        List<Customer> customers = createSampleCustomers();
         return List.of(
                 createOrder("1", customers.get(0), List.of(), OrderStatus.NEW),
                 createOrder("2", customers.get(2), null, OrderStatus.DELIVERED)
@@ -72,7 +79,6 @@ public class TestDataFactory {
     }
 
     public static List<Order> createOrdersWithoutDeliveredStatus() {
-        List<Customer> customers = createSampleCustomers();
         return List.of(
                 createOrder("1", customers.get(0), List.of(), OrderStatus.NEW),
                 createOrder("2", customers.get(2), null, OrderStatus.CANCELLED)
@@ -80,7 +86,6 @@ public class TestDataFactory {
     }
 
     public static List<Order> createMixedOrders() {
-        List<Customer> customers = createSampleCustomers();
         return Arrays.asList(
                 createOrder("101", customers.get(0), createOrderItems("Phone", "Laptop"), OrderStatus.NEW),
                 createOrder("102", customers.get(1), createBooksAndStationery(), OrderStatus.DELIVERED),
@@ -91,15 +96,20 @@ public class TestDataFactory {
         );
     }
 
-    public static List<Order> createMixedOrdersWithSameCity(String city) {
-        List<Customer> customers = createSampleCustomersWithSameCity(city);
+    public static List<Order> createMixedOrdersWithSameCity() {
         return Arrays.asList(
-                createOrder("101", customers.get(0), createOrderItems("Phone", "Laptop"), OrderStatus.NEW),
-                createOrder("102", customers.get(1), createBooksAndStationery(), OrderStatus.DELIVERED),
-                createOrder("103", customers.get(2), createMixedItems(), OrderStatus.PROCESSING),
-                createOrder("104", customers.get(3), createOrderItems("Phone", "Laptop"), OrderStatus.DELIVERED),
-                createOrder("105", customers.get(0), createBooksAndStationery(), OrderStatus.CANCELLED),
-                createOrder("106", customers.get(1), createMixedItems(), OrderStatus.DELIVERED)
+                createOrder("101", customersWithTheSameCity.get(0), createOrderItems("Phone", "Laptop"), OrderStatus.NEW),
+                createOrder("102", customersWithTheSameCity.get(1), createBooksAndStationery(), OrderStatus.DELIVERED),
+                createOrder("103", customersWithTheSameCity.get(2), createMixedItems(), OrderStatus.PROCESSING),
+                createOrder("104", customersWithTheSameCity.get(3), createOrderItems("Phone", "Laptop"), OrderStatus.DELIVERED),
+                createOrder("105", customersWithTheSameCity.get(0), createBooksAndStationery(), OrderStatus.CANCELLED),
+                createOrder("106", customersWithTheSameCity.get(1), createMixedItems(), OrderStatus.DELIVERED)
+        );
+    }
+
+    public static List<Order> createOrderWithOneCity() {
+        return List.of(
+                createOrder("101", customersWithTheSameCity.getFirst(), createOrderItems("Phone", "Laptop"), OrderStatus.NEW)
         );
     }
 
