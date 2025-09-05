@@ -1,3 +1,8 @@
+package com.innowise.service;
+
+import com.innowise.dto.Customer;
+import com.innowise.exception.NoItemsFoundException;
+import com.innowise.util.testdata.TestDataFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -6,11 +11,11 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-class MetricsTest {
+class OrderMetricsServiceTest {
     @Test
     @DisplayName("Should return unique cities from mixed orders")
     void shouldReturnUniqueCitiesFromMixedOrders() {
-        Metrics metrics = new Metrics(TestDataFactory.createMixedOrders());
+        OrderMetricsService metrics = new OrderMetricsService(TestDataFactory.createMixedOrders());
         List<String> cities = metrics.getUniqueCities();
 
         assertEquals(4, cities.size());
@@ -21,9 +26,19 @@ class MetricsTest {
     }
 
     @Test
+    @DisplayName("Should return one city from 1 order with the same cities")
+    void shouldReturnOneCityForGetUniqueCities() {
+        OrderMetricsService metrics = new OrderMetricsService(TestDataFactory.createOrderWithOneCity());
+        List<String> result = metrics.getUniqueCities();
+
+        assertEquals(1, result.size());
+        assertTrue(result.contains("Minsk"));
+    }
+
+    @Test
     @DisplayName("Should return empty list from mixed orders with the same cities")
     void shouldReturnEmptyListForGetUniqueCities() {
-        Metrics metrics = new Metrics(TestDataFactory.createMixedOrdersWithSameCity("Minsk"));
+        OrderMetricsService metrics = new OrderMetricsService(TestDataFactory.createMixedOrdersWithSameCity());
         List<String> result = metrics.getUniqueCities();
 
         assertTrue(result.isEmpty());
@@ -32,7 +47,7 @@ class MetricsTest {
     @Test
     @DisplayName("Should calculate total income from delivered orders only")
     void shouldCalculateTotalIncomeFromDeliveredOrdersOnly() {
-        Metrics metrics = new Metrics(TestDataFactory.createMixedOrders());
+        OrderMetricsService metrics = new OrderMetricsService(TestDataFactory.createMixedOrders());
         double income = metrics.getTotalIncome();
 
         double expected = (100 + 100) + (5 * 20 + 10 * 3.5) + (150 + 2 * 300 + 3 * 15);
@@ -42,25 +57,24 @@ class MetricsTest {
     @Test
     @DisplayName("Should identify most popular product across all orders")
     void shouldIdentifyMostPopularProductAcrossAllOrders() {
-        Metrics metrics = new Metrics(TestDataFactory.createMixedOrders());
+        OrderMetricsService metrics = new OrderMetricsService(TestDataFactory.createMixedOrders());
         String popular = metrics.getTheMostPopularProduct();
 
         assertTrue(popular.equals("Phone") || popular.equals("Laptop"));
     }
 
     @Test
-    @DisplayName("Should return message")
+    @DisplayName("Should return exception")
     void shouldReturnMessageForGetTheMostPopularProductAcrossAllOrders() {
-        Metrics metrics = new Metrics(TestDataFactory.createOrdersWithoutProducts());
-        String popular = metrics.getTheMostPopularProduct();
+        OrderMetricsService metrics = new OrderMetricsService(TestDataFactory.createOrdersWithoutProducts());
 
-        assertEquals("No products found", popular);
+        assertThrows(NoItemsFoundException.class, metrics::getTheMostPopularProduct);
     }
 
     @Test
     @DisplayName("Should calculate average check for delivered orders")
     void shouldCalculateAverageCheckForDeliveredOrders() {
-        Metrics metrics = new Metrics(TestDataFactory.createMixedOrders());
+        OrderMetricsService metrics = new OrderMetricsService(TestDataFactory.createMixedOrders());
 
         double total = 135 + 200 + 795;
         int totalItems = 2 + 2 + 3;
@@ -73,7 +87,7 @@ class MetricsTest {
     @DisplayName("Should return 0 for average check for delivered orders")
     void returnsZeroWhenNoDeliveredItemsPresent() {
 
-        Metrics metrics = new Metrics(TestDataFactory.createOrdersWithoutDeliveredStatus());
+        OrderMetricsService metrics = new OrderMetricsService(TestDataFactory.createOrdersWithoutDeliveredStatus());
         double result = metrics.getAverageCheckForDeliveredOrders();
 
         assertEquals(0.0, result);
@@ -82,7 +96,7 @@ class MetricsTest {
     @Test
     @DisplayName("Should return empty list for mixedOrders")
     void shouldReturnEmptyListForGetCustomersWithMoreThan5Orders() {
-        Metrics metrics = new Metrics(TestDataFactory.createMixedOrders());
+        OrderMetricsService metrics = new OrderMetricsService(TestDataFactory.createMixedOrders());
         List<Customer> result = metrics.getCustomersWithMoreThan5Orders();
 
         assertTrue(result.isEmpty());
@@ -91,7 +105,7 @@ class MetricsTest {
     @DisplayName("Should return customer with >5 orders")
     @Test
     void testCustomerWithMoreThanFiveOrders() {
-        Metrics metrics = new Metrics(TestDataFactory.createOrdersWithFrequentCustomer());
+        OrderMetricsService metrics = new OrderMetricsService(TestDataFactory.createOrdersWithFrequentCustomer());
         List<Customer> result = metrics.getCustomersWithMoreThan5Orders();
 
         assertFalse(result.isEmpty());
