@@ -50,7 +50,7 @@ class CustomLinkedListTest {
 
         assertEquals(20, list.get(1));
         assertEquals(30, list.get(2));
-        assertNull(list.get(5));
+        assertThrows(IndexOutOfBoundsException.class, () -> list.get(5));
     }
 
     @Test
@@ -59,7 +59,7 @@ class CustomLinkedListTest {
         CustomLinkedList<String> list = new CustomLinkedList<>();
         list.addLast("A");
         list.addLast("B");
-        list.removeFirst();
+        assertTrue(list.removeFirst());
 
         assertEquals("B", list.getFirst());
         assertEquals(1, list.size());
@@ -84,9 +84,9 @@ class CustomLinkedListTest {
         list.addLast("A");
         list.addLast("B");
         list.addLast("C");
-        list.remove(1);
+        assertTrue(list.remove(1));
 
-        assertFalse(list.remove(6));
+        assertThrows(IndexOutOfBoundsException.class, () -> list.remove(6));
         assertEquals("C", list.get(1));
         assertEquals(2, list.size());
     }
@@ -96,7 +96,7 @@ class CustomLinkedListTest {
     void shouldRemoveSingleElement() {
         CustomLinkedList<String> list = new CustomLinkedList<>();
         list.addLast("A");
-        list.removeFirst();
+        assertTrue(list.removeFirst());
 
         assertNull(list.getFirst());
         assertNull(list.getLast());
@@ -115,13 +115,13 @@ class CustomLinkedListTest {
     }
 
     @Test
-    @DisplayName("Should add first element")
+    @DisplayName("Should throw only exceptions")
     void shouldWorkProperlyWithInvalidIndexOperations() {
         CustomLinkedList<String> list = new CustomLinkedList<>();
 
-        assertFalse(list.remove(5));
-        assertFalse(list.add(-1, "X"));
-        assertNull(list.get(-1));
+        assertThrows(IndexOutOfBoundsException.class, () -> list.remove(5));
+        assertThrows(IndexOutOfBoundsException.class, () -> list.add(-1, "X"));
+        assertThrows(IndexOutOfBoundsException.class, () -> list.remove(-1));
     }
 
     @Test

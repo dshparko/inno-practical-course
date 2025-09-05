@@ -34,19 +34,26 @@ public class CustomLinkedList<V> {
     }
 
     public boolean add(int index, V value) {
-        if (index < 0 || index > size) return false;
-        if (index == 0) return addFirst(value);
-        if (index == size) return addLast(value);
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
+        if (index == 0) {
+            return addFirst(value);
+        }
+        if (index == size) {
+            return addLast(value);
+        }
 
         Node<V> current = getNode(index);
-        if (current == null) return false;
 
         Node<V> newNode = new Node<>(value);
         Node<V> prev = current.getPrev();
 
         newNode.setPrev(prev);
         newNode.setNext(current);
-        if (prev != null) prev.setNext(newNode);
+        if (prev != null) {
+            prev.setNext(newNode);
+        }
         current.setPrev(newNode);
 
         size++;
@@ -63,12 +70,16 @@ public class CustomLinkedList<V> {
 
     public V get(int index) {
         Node<V> node = getNode(index);
-        if (node == null) return null;
+        if (node == null) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
         return node.getValue();
     }
 
     public boolean removeFirst() {
-        if (first == null) return false;
+        if (first == null) {
+            return false;
+        }
         first = first.getNext();
         if (first != null) {
             first.setPrev(null);
@@ -80,7 +91,9 @@ public class CustomLinkedList<V> {
     }
 
     public boolean removeLast() {
-        if (last == null) return false;
+        if (last == null) {
+            return false;
+        }
         last = last.getPrev();
         if (last != null) {
             last.setNext(null);
@@ -92,25 +105,36 @@ public class CustomLinkedList<V> {
     }
 
     public boolean remove(int index) {
-        if (index < 0 || index >= size) return false;
-        if (index == 0) return removeFirst();
-        if (index == size - 1) return removeLast();
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
+        if (index == 0) {
+            return removeFirst();
+        }
+        if (index == size - 1) {
+            return removeLast();
+        }
 
         Node<V> node = getNode(index);
-        if (node == null) return false;
 
         Node<V> prev = node.getPrev();
         Node<V> next = node.getNext();
 
-        if (prev != null) prev.setNext(next);
-        if (next != null) next.setPrev(prev);
+        if (prev != null) {
+            prev.setNext(next);
+        }
+        if (next != null) {
+            next.setPrev(prev);
+        }
 
         size--;
         return true;
     }
 
     private Node<V> getNode(int index) {
-        if (index < 0 || index >= size) return null;
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
 
         Node<V> current;
         if (index < size / 2) {
