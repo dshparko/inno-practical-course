@@ -3,6 +3,9 @@ package com.innowise;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class CustomLinkedListTest {
@@ -13,7 +16,7 @@ class CustomLinkedListTest {
         list.addFirst("B");
         list.addFirst("A");
 
-        assertEquals("A", list.getFirst());
+        assertEquals("A", list.getFirst().get());
         assertEquals(2, list.size());
     }
 
@@ -24,7 +27,7 @@ class CustomLinkedListTest {
         list.addLast("A");
         list.addLast("B");
 
-        assertEquals("B", list.getLast());
+        assertEquals("B", list.getLast().get());
         assertEquals(2, list.size());
     }
 
@@ -63,7 +66,7 @@ class CustomLinkedListTest {
         list.addLast("B");
         assertTrue(list.removeFirst());
 
-        assertEquals("B", list.getFirst());
+        assertEquals("B", list.getFirst().get());
         assertEquals(1, list.size());
     }
 
@@ -75,7 +78,7 @@ class CustomLinkedListTest {
         list.addLast("B");
         list.removeLast();
 
-        assertEquals("A", list.getLast());
+        assertEquals("A", list.getLast().get());
         assertEquals(1, list.size());
     }
 
@@ -100,8 +103,8 @@ class CustomLinkedListTest {
         list.addLast("A");
         assertTrue(list.removeFirst());
 
-        assertNull(list.getFirst());
-        assertNull(list.getLast());
+        assertEquals(Optional.empty(), list.getFirst());
+        assertEquals(Optional.empty(), list.getLast());
         assertEquals(0, list.size());
     }
 
@@ -111,8 +114,8 @@ class CustomLinkedListTest {
         CustomLinkedList<String> list = new CustomLinkedList<>();
         list.add(0, "A");
 
-        assertEquals("A", list.getFirst());
-        assertEquals("A", list.getLast());
+        assertEquals("A", list.getFirst().get());
+        assertEquals("A", list.getLast().get());
         assertEquals(1, list.size());
     }
 
@@ -124,6 +127,8 @@ class CustomLinkedListTest {
         assertThrows(IndexOutOfBoundsException.class, () -> list.remove(5));
         assertThrows(IndexOutOfBoundsException.class, () -> list.add(-1, "X"));
         assertThrows(IndexOutOfBoundsException.class, () -> list.remove(-1));
+        assertThrows(NoSuchElementException.class, () -> list.removeLast());
+        assertThrows(NoSuchElementException.class, () -> list.removeFirst());
     }
 
     @Test
@@ -133,7 +138,7 @@ class CustomLinkedListTest {
 
         assertTrue(list.addFirst(null));
         assertEquals(1, list.size());
-        assertNull(list.getFirst());
+        assertEquals(Optional.empty(), list.getFirst());
         assertNull(list.get(0));
     }
 

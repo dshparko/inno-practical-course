@@ -1,5 +1,6 @@
 package com.innowise;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 public class CustomLinkedList<V> {
@@ -82,7 +83,7 @@ public class CustomLinkedList<V> {
 
     public boolean removeFirst() {
         if (first == null) {
-            return false;
+            throw new NoSuchElementException("Cannot remove first item — the list is empty.");
         }
         first = first.getNext();
         if (first != null) {
@@ -96,7 +97,7 @@ public class CustomLinkedList<V> {
 
     public boolean removeLast() {
         if (last == null) {
-            return false;
+            throw new NoSuchElementException("Cannot remove last item — the list is empty.");
         }
         last = last.getPrev();
         if (last != null) {
