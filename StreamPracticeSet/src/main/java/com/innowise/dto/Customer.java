@@ -1,3 +1,5 @@
+package com.innowise.dto;
+
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -6,12 +8,14 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode
 @ToString
 @AllArgsConstructor
-class Customer {
+public class Customer {
     private String customerId;
     private String name;
     private String email;
     private LocalDateTime registeredAt;
     private int age;
+
+    @NonNull
     private String city;
 
 }
