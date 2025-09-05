@@ -1,5 +1,11 @@
+package com.innowise.model;
+
+import com.innowise.config.SimulationConfig;
+import com.innowise.model.part.PartType;
+import com.innowise.model.part.RobotPart;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -7,6 +13,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
+@Slf4j
 public class Faction implements Runnable {
 
     @Getter
@@ -47,6 +54,6 @@ public class Faction implements Runnable {
     }
 
     private void logCollection(int day, int collectedCount) {
-        System.out.printf("Day %d. Faction %s collected %d parts%n", day, name, collectedCount);
+        log.info("Day {}. Faction {} collected {} parts", day, name, collectedCount);
     }
 }

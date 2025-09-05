@@ -1,3 +1,8 @@
+package com.innowise.model;
+
+import com.innowise.model.part.PartType;
+import com.innowise.model.part.RobotPart;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;

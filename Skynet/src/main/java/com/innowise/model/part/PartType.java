@@ -1,3 +1,5 @@
+package com.innowise.model.part;
+
 import java.util.concurrent.ThreadLocalRandom;
 
 public enum PartType {
