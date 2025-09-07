@@ -1,3 +1,6 @@
+import com.innowise.config.SimulationConfig;
+import com.innowise.model.Faction;
+import com.innowise.model.Factory;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -29,15 +32,6 @@ public class SimulationRunner {
         return () -> {
             for (int day = 0; day < SimulationConfig.DAYS; day++) {
                 factory.produceParts(SimulationConfig.FACTORY_PARTS_PER_DAY);
-                try {
-                    Thread.sleep(ThreadLocalRandom.current().nextInt(
-                            SimulationConfig.MIN_SLEEP_MS,
-                            SimulationConfig.MAX_SLEEP_MS
-                    ));
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    break;
-                }
             }
         };
     }
