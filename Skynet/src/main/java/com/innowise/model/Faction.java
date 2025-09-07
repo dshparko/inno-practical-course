@@ -9,30 +9,49 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.Phaser;
 import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
+import static com.innowise.config.SimulationConfig.FACTION_PARTS_PER_DAY;
+import static com.innowise.config.SimulationConfig.SLEEP_MS;
+
+
 @Slf4j
+@RequiredArgsConstructor
 public class Faction implements Runnable {
 
     @Getter
     private final String name;
     private final Factory factory;
+    private final Phaser phaser;
 
     private final Queue<RobotPart> inventory = new ConcurrentLinkedQueue<>();
 
-
     @Override
     public void run() {
+        phaser.register();
         for (int day = 1; day <= SimulationConfig.DAYS; day++) {
-            sleepRandomInterval();
+            productionPhase();
 
-            List<RobotPart> collected = factory.collectParts(SimulationConfig.FACTION_PARTS_PER_DAY);
-            inventory.addAll(collected);
+            collectionPhase(day);
 
-            logCollection(day, collected.size());
+            try {
+                Thread.sleep(SLEEP_MS);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
+    }
+
+    private void productionPhase() {
+        phaser.arriveAndAwaitAdvance();
+    }
+
+    private void collectionPhase(int day) {
+        List<RobotPart> collected = factory.collectParts(FACTION_PARTS_PER_DAY);
+        inventory.addAll(collected);
+        logCollection(day, collected.size());
+        phaser.arriveAndAwaitAdvance();
     }
 
     public int getCompleteRobotCount() {
@@ -45,13 +64,6 @@ public class Faction implements Runnable {
                 .orElse(0);
     }
 
-    private void sleepRandomInterval() {
-        try {
-            Thread.sleep(ThreadLocalRandom.current().nextInt(SimulationConfig.MIN_SLEEP_MS, SimulationConfig.MAX_SLEEP_MS));
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-    }
 
     private void logCollection(int day, int collectedCount) {
         log.info("Day {}. Faction {} collected {} parts", day, name, collectedCount);
