@@ -20,12 +20,20 @@ public class OrderMetricsService {
     }
 
     public List<String> getUniqueCities() {
+        if (orders.isEmpty()) {
+            return List.of();
+        }
+
         Set<String> uniqueCities = orders.stream()
                 .map(Order::getCustomer)
                 .map(Customer::getCity)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toCollection(LinkedHashSet::new));
 
-        return uniqueCities.size() <= 1 && orders.size() != 1 ? List.of() : new ArrayList<>(uniqueCities);
+        if (orders.size() == 1) {
+            return List.copyOf(uniqueCities);
+        }
+
+        return uniqueCities.size() <= 1 ? List.of() : List.copyOf(uniqueCities);
     }
 
     public double getTotalIncome() {

@@ -35,10 +35,20 @@ class OrderMetricsServiceTest {
         assertTrue(result.contains("Minsk"));
     }
 
+
     @Test
     @DisplayName("Should return empty list from mixed orders with the same cities")
     void shouldReturnEmptyListForGetUniqueCities() {
         OrderMetricsService metrics = new OrderMetricsService(TestDataFactory.createMixedOrdersWithSameCity());
+        List<String> result = metrics.getUniqueCities();
+
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    @DisplayName("Should return empty list without orders")
+    void shouldReturnEmptyListForGetUniqueCitiesWithoutOrders() {
+        OrderMetricsService metrics = new OrderMetricsService(List.of());
         List<String> result = metrics.getUniqueCities();
 
         assertTrue(result.isEmpty());
