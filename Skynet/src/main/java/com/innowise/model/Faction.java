@@ -25,6 +25,7 @@ public class Faction implements Runnable {
     private final Factory factory;
     private final Phaser phaser;
 
+    @Getter
     private final Queue<RobotPart> inventory = new ConcurrentLinkedQueue<>();
 
     @Override
