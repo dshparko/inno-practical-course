@@ -1,8 +1,8 @@
-package com.innowise.skynet.config.model;
+package com.innowise.skynet.model;
 
 import com.innowise.skynet.config.SimulationConfig;
-import com.innowise.skynet.config.model.part.PartType;
-import com.innowise.skynet.config.model.part.RobotPart;
+import com.innowise.skynet.model.part.PartType;
+import com.innowise.skynet.model.part.RobotPart;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

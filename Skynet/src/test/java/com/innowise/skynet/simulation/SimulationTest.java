@@ -1,6 +1,5 @@
 package com.innowise.skynet.simulation;
 
-import com.innowise.skynet.config.simulation.Simulation;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

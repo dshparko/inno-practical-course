@@ -1,4 +1,4 @@
-package com.innowise.skynet.config.model.part;
+package com.innowise.skynet.model.part;
 
 import java.util.concurrent.ThreadLocalRandom;
 

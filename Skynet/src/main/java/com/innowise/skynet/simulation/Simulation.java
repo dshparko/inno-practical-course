@@ -1,7 +1,7 @@
-package com.innowise.skynet.config.simulation;
+package com.innowise.skynet.simulation;
 
-import com.innowise.skynet.config.model.Faction;
-import com.innowise.skynet.config.model.Factory;
+import com.innowise.skynet.model.Faction;
+import com.innowise.skynet.model.Factory;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
