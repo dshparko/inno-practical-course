@@ -1,4 +1,4 @@
-package com.innowise;
+package com.innowise.linkedlist;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

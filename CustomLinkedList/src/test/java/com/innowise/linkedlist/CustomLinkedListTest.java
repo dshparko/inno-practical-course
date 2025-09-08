@@ -1,4 +1,4 @@
-package com.innowise;
+package com.innowise.linkedlist;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -127,8 +127,8 @@ class CustomLinkedListTest {
         assertThrows(IndexOutOfBoundsException.class, () -> list.remove(5));
         assertThrows(IndexOutOfBoundsException.class, () -> list.add(-1, "X"));
         assertThrows(IndexOutOfBoundsException.class, () -> list.remove(-1));
-        assertThrows(NoSuchElementException.class, () -> list.removeLast());
-        assertThrows(NoSuchElementException.class, () -> list.removeFirst());
+        assertThrows(NoSuchElementException.class, list::removeLast);
+        assertThrows(NoSuchElementException.class, list::removeFirst);
     }
 
     @Test
