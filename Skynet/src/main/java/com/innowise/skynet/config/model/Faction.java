@@ -1,8 +1,8 @@
-package com.innowise.model;
+package com.innowise.skynet.config.model;
 
-import com.innowise.config.SimulationConfig;
-import com.innowise.model.part.PartType;
-import com.innowise.model.part.RobotPart;
+import com.innowise.skynet.config.SimulationConfig;
+import com.innowise.skynet.config.model.part.PartType;
+import com.innowise.skynet.config.model.part.RobotPart;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,8 +12,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Phaser;
 import java.util.stream.Collectors;
 
-import static com.innowise.config.SimulationConfig.FACTION_PARTS_PER_DAY;
-import static com.innowise.config.SimulationConfig.SLEEP_MS;
+import static com.innowise.skynet.config.SimulationConfig.FACTION_PARTS_PER_DAY;
+import static com.innowise.skynet.config.SimulationConfig.SLEEP_MS;
 
 
 @Slf4j

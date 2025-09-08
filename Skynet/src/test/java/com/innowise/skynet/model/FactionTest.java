@@ -1,8 +1,10 @@
-package com.innowise.model;
+package com.innowise.skynet.model;
 
-import com.innowise.config.SimulationConfig;
-import com.innowise.model.part.PartType;
-import com.innowise.model.part.RobotPart;
+import com.innowise.skynet.config.SimulationConfig;
+import com.innowise.skynet.config.model.Faction;
+import com.innowise.skynet.config.model.Factory;
+import com.innowise.skynet.config.model.part.PartType;
+import com.innowise.skynet.config.model.part.RobotPart;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

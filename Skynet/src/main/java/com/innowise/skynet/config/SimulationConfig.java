@@ -1,4 +1,4 @@
-package com.innowise.config;
+package com.innowise.skynet.config;
 
 public class SimulationConfig {
     public static final int DAYS = 100;
