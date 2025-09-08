@@ -1,10 +1,10 @@
-package com.innowise.util.testdata;
+package com.innowise.sales.customer.analysis.util.testdata;
 
-import com.innowise.dto.Category;
-import com.innowise.dto.Customer;
-import com.innowise.dto.Order;
-import com.innowise.dto.OrderItem;
-import com.innowise.dto.OrderStatus;
+import com.innowise.sales.customer.analysis.dto.Category;
+import com.innowise.sales.customer.analysis.dto.Customer;
+import com.innowise.sales.customer.analysis.dto.Order;
+import com.innowise.sales.customer.analysis.dto.OrderItem;
+import com.innowise.sales.customer.analysis.dto.OrderStatus;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
