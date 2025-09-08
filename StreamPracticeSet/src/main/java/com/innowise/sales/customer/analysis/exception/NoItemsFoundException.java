@@ -1,4 +1,4 @@
-package com.innowise.exception;
+package com.innowise.sales.customer.analysis.exception;
 
 public class NoItemsFoundException extends RuntimeException {
 

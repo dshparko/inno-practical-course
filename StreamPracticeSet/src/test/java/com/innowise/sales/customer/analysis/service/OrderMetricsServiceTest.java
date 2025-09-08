@@ -1,8 +1,8 @@
-package com.innowise.service;
+package com.innowise.sales.customer.analysis.service;
 
-import com.innowise.dto.Customer;
-import com.innowise.exception.NoItemsFoundException;
-import com.innowise.util.testdata.TestDataFactory;
+import com.innowise.sales.customer.analysis.dto.Customer;
+import com.innowise.sales.customer.analysis.exception.NoItemsFoundException;
+import com.innowise.sales.customer.analysis.util.testdata.TestDataFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

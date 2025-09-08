@@ -1,10 +1,10 @@
-package com.innowise.service;
+package com.innowise.sales.customer.analysis.service;
 
-import com.innowise.dto.Customer;
-import com.innowise.dto.Order;
-import com.innowise.dto.OrderItem;
-import com.innowise.dto.OrderStatus;
-import com.innowise.exception.NoItemsFoundException;
+import com.innowise.sales.customer.analysis.dto.Customer;
+import com.innowise.sales.customer.analysis.dto.Order;
+import com.innowise.sales.customer.analysis.dto.OrderItem;
+import com.innowise.sales.customer.analysis.dto.OrderStatus;
+import com.innowise.sales.customer.analysis.exception.NoItemsFoundException;
 
 import java.util.*;
 import java.util.function.Function;

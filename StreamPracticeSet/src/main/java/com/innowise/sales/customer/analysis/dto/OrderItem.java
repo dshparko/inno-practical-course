@@ -1,4 +1,4 @@
-package com.innowise.dto;
+package com.innowise.sales.customer.analysis.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
