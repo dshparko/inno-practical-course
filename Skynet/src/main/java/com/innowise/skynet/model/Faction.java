@@ -42,6 +42,7 @@ public class Faction implements Runnable {
                 throw new RuntimeException(e);
             }
         }
+        phaser.arriveAndDeregister();
     }
 
     private void productionPhase() {
