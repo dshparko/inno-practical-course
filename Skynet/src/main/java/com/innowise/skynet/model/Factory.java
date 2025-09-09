@@ -36,33 +36,27 @@ public class Factory implements Runnable {
         }
         phaser.arriveAndDeregister();
     }
+
     public void produceParts(int maxCount) {
         int count = getRandomCount(maxCount);
 
         for (int i = 0; i < count; i++) {
-            synchronized (availableParts) {
-                availableParts.add(getRandomRobotPart());
-            }
+            availableParts.add(getRandomRobotPart());
         }
 
-        log.info("Factory: produced parts quantity is " + count);
-        log.info("Factory: available parts quantity is " + availableParts.size());
+        log.info("Factory: produced parts quantity is {}", count);
+        log.info("Factory: available parts quantity is {}", availableParts.size());
     }
 
     public List<RobotPart> collectParts(int maxCount) {
-        int count = getRandomCount(maxCount);
         List<RobotPart> collected = new ArrayList<>();
-        while (!availableParts.isEmpty() && count > 0) {
-            RobotPart part;
-            synchronized (availableParts) {
-                part = availableParts.poll();
-            }
+        while (!availableParts.isEmpty() && collected.size() < maxCount) {
+            RobotPart part = availableParts.poll();
             if (part == null) {
                 break;
             }
 
             collected.add(part);
-            count--;
         }
         return collected;
     }
