@@ -71,17 +71,11 @@ public class TestDataFactory {
                 .toList();
     }
 
-    public static List<Order> createOrdersWithoutProducts() {
-        return List.of(
-                createOrder("1", customers.get(0), List.of(), OrderStatus.NEW),
-                createOrder("2", customers.get(2), null, OrderStatus.DELIVERED)
-        );
-    }
 
     public static List<Order> createOrdersWithoutDeliveredStatus() {
         return List.of(
-                createOrder("1", customers.get(0), List.of(), OrderStatus.NEW),
-                createOrder("2", customers.get(2), null, OrderStatus.CANCELLED)
+                createOrder("1", customers.get(0), createOrderItems("Phone", "Laptop"), OrderStatus.NEW),
+                createOrder("2", customers.get(2), createOrderItems("Phone", "Laptop"), OrderStatus.CANCELLED)
         );
     }
 

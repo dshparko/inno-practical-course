@@ -76,7 +76,7 @@ class OrderMetricsServiceTest {
     @Test
     @DisplayName("Should return exception")
     void shouldReturnMessageForGetTheMostPopularProductAcrossAllOrders() {
-        OrderMetricsService metrics = new OrderMetricsService(TestDataFactory.createOrdersWithoutProducts());
+        OrderMetricsService metrics = new OrderMetricsService(TestDataFactory.createOrdersWithoutDeliveredStatus());
 
         assertThrows(NoItemsFoundException.class, metrics::getTheMostPopularProduct);
     }
