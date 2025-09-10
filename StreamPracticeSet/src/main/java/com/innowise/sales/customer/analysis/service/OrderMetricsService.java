@@ -60,7 +60,7 @@ public class OrderMetricsService {
                 .orElse(0);
     }
 
-    public List<Customer> getCustomersWithMoreThan5Orders() {
+    public List<Customer> getCustomersWithMoreThanXOrders(long minOrderCount) {
         Map<String, Customer> customerById = orders.stream()
                 .map(Order::getCustomer)
                 .collect(Collectors.toMap(
@@ -76,7 +76,7 @@ public class OrderMetricsService {
                         Collectors.counting()
                 ))
                 .entrySet().stream()
-                .filter(entry -> entry.getValue() > 5)
+                .filter(entry -> entry.getValue() > minOrderCount)
                 .map(entry -> customerById.get(entry.getKey()))
                 .toList();
     }

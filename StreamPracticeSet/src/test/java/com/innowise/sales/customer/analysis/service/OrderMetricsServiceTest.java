@@ -107,7 +107,7 @@ class OrderMetricsServiceTest {
     @DisplayName("Should return empty list for mixedOrders")
     void shouldReturnEmptyListForGetCustomersWithMoreThan5Orders() {
         OrderMetricsService metrics = new OrderMetricsService(TestDataFactory.createMixedOrders());
-        List<Customer> result = metrics.getCustomersWithMoreThan5Orders();
+        List<Customer> result = metrics.getCustomersWithMoreThanXOrders(5L);
 
         assertTrue(result.isEmpty());
     }
@@ -116,7 +116,7 @@ class OrderMetricsServiceTest {
     @Test
     void testCustomerWithMoreThanFiveOrders() {
         OrderMetricsService metrics = new OrderMetricsService(TestDataFactory.createOrdersWithFrequentCustomer());
-        List<Customer> result = metrics.getCustomersWithMoreThan5Orders();
+        List<Customer> result = metrics.getCustomersWithMoreThanXOrders(5L);
 
         assertFalse(result.isEmpty());
         assertTrue(result.stream().anyMatch(c -> c.getName().equals("Darya")));
