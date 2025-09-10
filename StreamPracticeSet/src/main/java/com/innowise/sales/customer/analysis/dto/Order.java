@@ -16,7 +16,7 @@ public class Order {
     @NonNull
     private Customer customer;
 
-
+    @NonNull
     private List<OrderItem> items;
     private OrderStatus status;
 

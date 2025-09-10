@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 public class OrderMetricsService {
     private final List<Order> orders;
     private List<OrderItem> cachedDeliveredItems;
-    private List<OrderItem> cachedAllItems;
 
     public OrderMetricsService(List<Order> orders) {
         this.orders = Objects.requireNonNullElse(orders, Collections.emptyList());
@@ -43,7 +42,10 @@ public class OrderMetricsService {
     }
 
     public String getTheMostPopularProduct() {
-        return getAllItems().stream()
+        return orders.stream()
+                .filter(order -> isSold(order.getStatus()))
+                .map(Order::getItems)
+                .flatMap(List::stream)
                 .collect(Collectors.groupingBy(OrderItem::getProductName, Collectors.counting()))
                 .entrySet().stream()
                 .max(Map.Entry.comparingByValue())
@@ -59,13 +61,28 @@ public class OrderMetricsService {
     }
 
     public List<Customer> getCustomersWithMoreThan5Orders() {
+        Map<String, Customer> customerById = orders.stream()
+                .map(Order::getCustomer)
+                .collect(Collectors.toMap(
+                        Customer::getCustomerId,
+                        Function.identity(),
+                        (c1, c2) -> c1
+                ));
+
         return orders.stream()
                 .map(Order::getCustomer)
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+                .collect(Collectors.groupingBy(
+                        Customer::getCustomerId,
+                        Collectors.counting()
+                ))
                 .entrySet().stream()
                 .filter(entry -> entry.getValue() > 5)
-                .map(Map.Entry::getKey)
+                .map(entry -> customerById.get(entry.getKey()))
                 .toList();
+    }
+
+    private boolean isSold(OrderStatus status) {
+        return status == OrderStatus.DELIVERED || status == OrderStatus.SHIPPED;
     }
 
     private List<OrderItem> getDeliveredItems() {
@@ -73,21 +90,10 @@ public class OrderMetricsService {
             cachedDeliveredItems = orders.stream()
                     .filter(order -> order.getStatus() == OrderStatus.DELIVERED)
                     .map(Order::getItems)
-                    .filter(Objects::nonNull)
                     .flatMap(List::stream)
                     .toList();
         }
         return cachedDeliveredItems;
     }
 
-    private List<OrderItem> getAllItems() {
-        if (cachedAllItems == null) {
-            cachedAllItems = orders.stream()
-                    .map(Order::getItems)
-                    .filter(Objects::nonNull)
-                    .flatMap(List::stream)
-                    .toList();
-        }
-        return cachedAllItems;
-    }
 }
