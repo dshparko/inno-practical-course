@@ -1,0 +1,19 @@
+# IntelliJ IDEA project files
+.idea/
+*.iml
+
+# Gradle build output and caches
+.gradle/
+build/
+
+# Java class files and JARs
+*.class
+*.jar
+*.war
+*.ear
+
+# Logs and temporary files
+*.log
+*.tmp
+*.swp
+*~
